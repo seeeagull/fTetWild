@@ -56,28 +56,6 @@ endif()
 
 
 # TBB
-if(FLOAT_TETWILD_ENABLE_TBB AND NOT TARGET tbb::tbb)
-	float_tetwild_download_tbb()
-
-	set(TBB_BUILD_STATIC ON CACHE BOOL " " FORCE)
-	set(TBB_BUILD_SHARED OFF CACHE BOOL " " FORCE)
-	set(TBB_BUILD_TBBMALLOC OFF CACHE BOOL " " FORCE)
-	set(TBB_BUILD_TBBMALLOC_PROXY OFF CACHE BOOL " " FORCE)
-	set(TBB_BUILD_TESTS OFF CACHE BOOL " " FORCE)
-	set(TBB_NO_DATE ON CACHE BOOL " " FORCE)
-
-	add_subdirectory(${FLOAT_TETWILD_EXTERNAL}/tbb tbb)
-	set_target_properties(tbb_static PROPERTIES
-		INTERFACE_INCLUDE_DIRECTORIES "${FLOAT_TETWILD_EXTERNAL}/tbb/include"
-	)
-	if(NOT MSVC)
-		set_target_properties(tbb_static PROPERTIES
-			COMPILE_FLAGS "-Wno-implicit-fallthrough -Wno-missing-field-initializers -Wno-unused-parameter -Wno-keyword-macro"
-		)
-		set_target_properties(tbb_static PROPERTIES POSITION_INDEPENDENT_CODE ON)
-	endif()
-	add_library(tbb::tbb ALIAS tbb_static)
-endif()
 
 # C++11 threads
 find_package(Threads REQUIRED)

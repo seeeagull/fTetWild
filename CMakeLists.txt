@@ -132,7 +132,8 @@ target_link_libraries(${PROJECT_NAME}
 		# ${MPFR_LIBRARIES}
 )
 if(FLOAT_TETWILD_ENABLE_TBB)
-	target_link_libraries(${PROJECT_NAME} PUBLIC tbb::tbb)
+	# find_package(TBB REQUIRED)
+	target_link_libraries(${PROJECT_NAME} PRIVATE tbb_from_instant_meshes)
 	target_compile_definitions(${PROJECT_NAME} PUBLIC FLOAT_TETWILD_USE_TBB)
 endif()
 
@@ -145,6 +146,11 @@ endif()
 ################################################################################
 # FloatTetwild binary
 ################################################################################
+
+add_library(FTetwildApi SHARED api.h api.cpp)
+target_compile_definitions(FTetwildApi PRIVATE -DFTetWild_EXPORT)
+target_link_libraries(FTetwildApi PUBLIC ${PROJECT_NAME})
+target_link_libraries(FTetwildApi PRIVATE tbb_from_instant_meshes)
 
 # Main executable
 if(FLOAT_TETWILD_TOPLEVEL_PROJECT)
