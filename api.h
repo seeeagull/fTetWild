@@ -15,4 +15,6 @@
 #endif
 
 
-EXPORT int runFTetWild(int argc, char **argv);
+EXPORT int runFTetWild(std::vector<std::vector<int>> &faces,
+                       std::vector<std::vector<float>> &verts,
+                       int argc, char **argv);

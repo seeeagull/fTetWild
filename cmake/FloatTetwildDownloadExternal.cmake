@@ -96,7 +96,7 @@ function(float_tetwild_download_geogram)
 #        GIT_REPOSITORY https://github.com/Yixin-Hu/geogram
 #        GIT_TAG        b613750341a6cdd31ae8df80ecfc26ac7ca1a6ad
         GIT_REPOSITORY https://github.com/seeeagull/geogram.git
-        GIT_TAG        a7920afd3c085c9edc8de45dce362239b1906b99
+        GIT_TAG        7705a929db874a2fdbe08d3a96e476c626b4ff53
     )
 endfunction()
 

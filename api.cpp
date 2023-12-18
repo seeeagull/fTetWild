@@ -105,7 +105,9 @@ inline float str_to_float(const std::string &str) {
     return result;
 }
 
-int runFTetWild(int argc, char **argv) {
+int runFTetWild(std::vector<std::vector<int>> &faces,
+                std::vector<std::vector<float>> &verts,
+                int argc, char **argv) {
 #ifdef STORE_SAMPLE_POINTS
     cout << "STORE_SAMPLE_POINTS defined" << endl;
 #endif
@@ -301,24 +303,30 @@ int runFTetWild(int argc, char **argv) {
         // To disable the recent modification of using input for wn, use meshes.clear();
     }
     else {
+        if (!verts.empty()) {
+            if (!MeshIO::construct_mesh(verts, faces, input_vertices, input_faces, sf_mesh, input_tags)) {
+                return EXIT_FAILURE;
+            }
+        } else {
 #ifdef NEW_ENVELOPE
-        if (!MeshIO::load_mesh(params.input_path,
-                               input_vertices,
-                               input_faces,
-                               sf_mesh,
-                               input_tags,
-                               params.input_epsr_tags)) {
+            if (!MeshIO::load_mesh(params.input_path,
+                                input_vertices,
+                                input_faces,
+                                sf_mesh,
+                                input_tags,
+                                params.input_epsr_tags)) {
 #else
-        if (!MeshIO::load_mesh(
-              params.input_path, input_vertices, input_faces, sf_mesh, input_tags)) {
+            if (!MeshIO::load_mesh(
+                params.input_path, input_vertices, input_faces, sf_mesh, input_tags)) {
 #endif
-            logger().error("Unable to load mesh at {}", params.input_path);
-            MeshIO::write_mesh(output_mesh_name, mesh, false);
-            return EXIT_FAILURE;
-        }
-        else if (input_vertices.empty() || input_faces.empty()) {
-            MeshIO::write_mesh(output_mesh_name, mesh, false);
-            return EXIT_FAILURE;
+                logger().error("Unable to load mesh at {}", params.input_path);
+                MeshIO::write_mesh(output_mesh_name, mesh, false);
+                return EXIT_FAILURE;
+            }
+            else if (input_vertices.empty() || input_faces.empty()) {
+                MeshIO::write_mesh(output_mesh_name, mesh, false);
+                return EXIT_FAILURE;
+            }
         }
 
         if (input_tags.size() != input_faces.size()) {

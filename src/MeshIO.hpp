@@ -16,6 +16,12 @@ namespace floatTetWild
 	class MeshIO
 	{
 	public:
+		static bool construct_mesh(const std::vector<std::vector<float>> &input_points,
+								   const std::vector<std::vector<int>> &input_faces,
+								   std::vector<Vector3>&  points,
+								   std::vector<Vector3i>& faces,
+								   GEO::Mesh&             input,
+								   std::vector<int>&      flags);
 		static bool load_mesh(const std::string &path, std::vector<Vector3> &points, std::vector<Vector3i> &faces, GEO::Mesh& input, std::vector<int> &flags);
 		static void load_mesh(std::vector<Vector3>&  points, std::vector<Vector3i>& faces, GEO::Mesh& input, std::vector<int>& flags);
 		static void load_mesh(std::vector<Vector3>&  points, std::vector<Vector3i>& faces, GEO::Mesh& input, std::vector<int>& flags, std::vector<double>& epsr_flags);
