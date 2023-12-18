@@ -33,7 +33,7 @@ namespace floatTetWild
 		static void write_mesh(const std::string &path, const Mesh &mesh, const std::vector<int> &t_ids,
 		        const bool do_filter = true, const bool binary = true, const bool separate_components = false);
 		static void write_surface_mesh(const std::string &path, const Mesh &mesh, const bool only_interior=true);
-
+		static void extract_mesh_element(const Mesh& mesh, std::vector<std::vector<int>> &faces, std::vector<std::vector<float>> &verts);
 		static void extract_volume_mesh(const Mesh &mesh, MatrixXs &V, Eigen::MatrixXi &T, bool only_interior = true);
 	};
 }

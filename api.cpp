@@ -212,6 +212,8 @@ int runFTetWild(std::vector<std::vector<int>> &faces,
     geo_logger->register_client(new GeoLoggerForward(logger().clone("geogram")));
     geo_logger->set_pretty(false);
 
+    if (!verts.empty())
+        params.input_path.clear();
     if (params.output_path.empty())
         params.output_path = params.input_path;
     if (params.log_path.empty())
@@ -226,7 +228,7 @@ int runFTetWild(std::vector<std::vector<int>> &faces,
              params.output_path.substr(params.output_path.size() - 4, params.output_path.size()) ==
                "mesh")
         output_mesh_name = params.output_path;
-    else
+    else if (params.output_path.size() > 0)
         output_mesh_name = params.output_path + "_" + params.postfix + ".msh";
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -526,19 +528,22 @@ int runFTetWild(std::vector<std::vector<int>> &faces,
         }
     }
     // fortest
-    MeshIO::write_mesh(output_mesh_name, mesh, false, colors, !nobinary, !csg_file.empty());
-    igl::write_triangle_mesh(params.output_path + "_" + params.postfix + "_sf.obj", V_sf, F_sf);
-    //    MeshIO::write_surface_mesh(params.output_path + "_" + params.postfix + "_sf.obj", mesh,
-    //    false);
+    if (params.output_path.size() > 0) {
+        MeshIO::write_mesh(output_mesh_name, mesh, false, colors, !nobinary, !csg_file.empty());
+        igl::write_triangle_mesh(params.output_path + "_" + params.postfix + "_sf.obj", V_sf, F_sf);
+    }
+    MeshIO::extract_mesh_element(mesh, faces, verts);
 
-    std::ofstream fout(params.log_path + "_" + params.postfix + ".csv");
-    if (fout.good())
-        fout << stats();
-    fout.close();
-    if (!params.envelope_log.empty()) {
-        std::ofstream fout(params.envelope_log);
-        fout << envelope_log_csv;
+    if (!params.log_path.empty()) {
+        std::ofstream fout(params.log_path + "_" + params.postfix + ".csv");
+        if (fout.good())
+            fout << stats();
         fout.close();
+        if (!params.envelope_log.empty()) {
+            std::ofstream fout(params.envelope_log);
+            fout << envelope_log_csv;
+            fout.close();
+        }
     }
 
     return EXIT_SUCCESS;

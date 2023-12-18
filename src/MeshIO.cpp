@@ -214,6 +214,48 @@ void write_mesh_aux(const std::string&              path,
         }
     }
 }
+
+void extract_mesh_element_aux(const Mesh&                       mesh,
+                              std::vector<std::vector<int>>&    faces,
+                              std::vector<std::vector<float>>&  verts,
+                              const std::function<bool(int)>&   skip_tet,
+                              const std::function<bool(int)>&   skip_vertex) {
+    std::map<int, int> old_2_new{};
+    int cnt_v = 0, cnt_t = 0;
+    for (int i = 0; i < mesh.tet_vertices.size(); i++)
+        if (!skip_vertex(i)) {
+            old_2_new[i] = cnt_v;
+            cnt_v++;
+        }
+    for (int i = 0; i < mesh.tets.size(); i++)
+        if (!skip_tet(i))
+            cnt_t++;
+
+    verts.clear();
+    verts.resize(cnt_v);
+    faces.clear();
+    faces.resize(cnt_t);
+
+    for (int ii = 0, i = 0; i < mesh.tet_vertices.size(); ++i) {
+        if (skip_vertex(i))
+            continue;
+        verts[ii] = std::vector<float>{};
+        for (int j = 0; j < 3; j++)
+            verts[ii].push_back(mesh.tet_vertices[i][j]);
+        ++ii;
+    }
+
+    for (int ii = 0, i = 0; i < mesh.tets.size(); i++) {
+        if (skip_tet(i))
+            continue;
+        faces[ii] = std::vector<int>{};
+        faces[ii].push_back(old_2_new[mesh.tets[i][0]]);
+        faces[ii].push_back(old_2_new[mesh.tets[i][1]]);
+        faces[ii].push_back(old_2_new[mesh.tets[i][3]]);
+        faces[ii].push_back(old_2_new[mesh.tets[i][2]]);
+        ++ii;
+    }
+}
 }  // namespace
 
 bool MeshIO::construct_mesh(const std::vector<std::vector<float>> &input_points,
@@ -618,6 +660,16 @@ void MeshIO::write_surface_mesh(const std::string& path, const Mesh& mesh, const
 
     timer.stop();
     logger().info(" took {}s", timer.getElapsedTime());
+}
+
+void MeshIO::extract_mesh_element(const Mesh&                       mesh,
+                                  std::vector<std::vector<int>>&    faces,
+                                  std::vector<std::vector<float>>&  verts)
+{
+
+    const auto skip_tet    = [&mesh](const int i) { return mesh.tets[i].is_removed; };
+    const auto skip_vertex = [&mesh](const int i) { return mesh.tet_vertices[i].is_removed; };
+    extract_mesh_element_aux(mesh, faces, verts, skip_tet, skip_vertex);
 }
 
 void MeshIO::extract_volume_mesh(const Mesh&      mesh,
