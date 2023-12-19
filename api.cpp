@@ -251,8 +251,8 @@ int runFTetWild(std::vector<std::vector<int>> &faces,
     }
 
     /// set input tage
-    std::vector<Vector3>  input_vertices{};
-    std::vector<Vector3i> input_faces{};
+    std::vector<Eigen::Vector3d>  input_vertices{};
+    std::vector<Eigen::Vector3i> input_faces{};
     std::vector<int>      input_tags{};
     //    std::vector<double> input_epsr_tags{};
 
