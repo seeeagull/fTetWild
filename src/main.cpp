@@ -311,9 +311,9 @@ int main(int argc, char** argv)
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// set sizing field
-    Eigen::VectorXd V_in;
+    VectorXs V_in;
     Eigen::VectorXi T_in;
-    Eigen::VectorXd values;
+    VectorXs values;
     if (!background_mesh.empty()) {
         PyMesh::MshLoader mshLoader(background_mesh);
         V_in   = mshLoader.get_nodes();
@@ -423,7 +423,7 @@ int main(int argc, char** argv)
 
 #ifdef LIBIGL_WITH_TETGEN
     if (run_tet_gen) {
-        Eigen::MatrixXd tetgen_pts(input_vertices.size(), 3);
+        MatrixXs tetgen_pts(input_vertices.size(), 3);
         Eigen::MatrixXi tetgen_faces(input_faces.size(), 3);
 
         for (size_t i = 0; i < input_vertices.size(); ++i) {
@@ -442,7 +442,7 @@ int main(int argc, char** argv)
                  sqrt(2.) / 12.;
 
         Eigen::MatrixXi tetgen_generated_tets;
-        Eigen::MatrixXd tetgen_generated_points;
+        MatrixXs tetgen_generated_points;
         Eigen::MatrixXi tetgen_generated_faces;
 
         timer.start();
@@ -581,7 +581,7 @@ int main(int argc, char** argv)
             }
         }
     }
-    Eigen::MatrixXd V_sf;
+    MatrixXs V_sf;
     Eigen::MatrixXi F_sf;
     if (params.manifold_surface) {
         manifold_surface(mesh, V_sf, F_sf);

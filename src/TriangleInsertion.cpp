@@ -1837,7 +1837,7 @@ bool floatTetWild::insert_boundary_edges(const std::vector<Vector3> &input_verti
         int f_id = b_edge_infos[I].second[0];
         {
             auto &infos = cut_fs;
-            Eigen::MatrixXd V(infos.size() * 3, 3), C(infos.size() * 3, 3);
+            MatrixXs V(infos.size() * 3, 3), C(infos.size() * 3, 3);
             Eigen::MatrixXi F(infos.size(), 3);
             for (int i = 0; i < infos.size(); i++) {
                 for (int j = 0; j < 3; j++) {
@@ -1849,7 +1849,7 @@ bool floatTetWild::insert_boundary_edges(const std::vector<Vector3> &input_verti
             igl::writeOFF("_covered_tet_fs_" + std::to_string(f_id) + ".off", V, F, C);
         }
         {
-            Eigen::MatrixXd V(3, 3), C(3, 3);
+            MatrixXs V(3, 3), C(3, 3);
             Eigen::MatrixXi F(1, 3);
             for (int j = 0; j < 3; j++) {
                 V.row(j) = input_vertices[input_faces[f_id][j]];
@@ -2273,7 +2273,7 @@ bool floatTetWild::insert_boundary_edges_get_intersecting_edges_and_points(
                         break;
                     }
                     //if intersect
-                    double t2 = -1;
+                    Scalar t2 = -1;
                     if (seg_seg_intersection_2d(evs_2d, {{fvs_2d[k], fvs_2d[(k + 1) % 3]}}, t2)) {
                         Vector3 p = (1 - t2) * mesh.tet_vertices[f_v_ids[k]].pos
                                     + t2 * mesh.tet_vertices[f_v_ids[(k + 1) % 3]].pos;
@@ -3104,7 +3104,7 @@ void floatTetWild::check_track_surface_fs(Mesh &mesh, std::vector<std::array<std
         //output input/tet triangles in different colors
         {
             auto &infos = covered_fs_infos[f_id];
-            Eigen::MatrixXd V(infos.size() * 3, 3), C(infos.size() * 3, 3);
+            MatrixXs V(infos.size() * 3, 3), C(infos.size() * 3, 3);
             Eigen::MatrixXi F(infos.size(), 3);
             for (int i = 0; i < infos.size(); i++) {
                 int t_id = infos[i].first;
@@ -3119,7 +3119,7 @@ void floatTetWild::check_track_surface_fs(Mesh &mesh, std::vector<std::array<std
                           + std::to_string(is_inside) + ".off", V, F, C);
         }
         {
-            Eigen::MatrixXd V(3, 3), C(3, 3);
+            MatrixXs V(3, 3), C(3, 3);
             Eigen::MatrixXi F(1, 3);
             for (int j = 0; j < 3; j++) {
                 V.row(j) = f_vs[j];

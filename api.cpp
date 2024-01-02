@@ -251,7 +251,7 @@ int runFTetWild(std::vector<std::vector<int>> &faces,
     }
 
     /// set input tage
-    std::vector<Eigen::Vector3d>  input_vertices{};
+    std::vector<Vector3>  input_vertices{};
     std::vector<Eigen::Vector3i> input_faces{};
     std::vector<int>      input_tags{};
     //    std::vector<double> input_epsr_tags{};
@@ -497,7 +497,7 @@ int runFTetWild(std::vector<std::vector<int>> &faces,
             }
         }
     }
-    Eigen::MatrixXd V_sf;
+    MatrixXs V_sf;
     Eigen::MatrixXi F_sf;
     if (params.manifold_surface) {
         manifold_surface(mesh, V_sf, F_sf);

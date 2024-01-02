@@ -101,7 +101,7 @@ void floatTetWild::simplify(std::vector<Vector3>& input_vertices, std::vector<Ve
     ////////////////////////
     //output
     if(params.log_level < 3) {
-        Eigen::MatrixXd V(input_vertices.size(), 3);
+        MatrixXs V(input_vertices.size(), 3);
         Eigen::MatrixXi F(input_faces.size(), 3);
         for (int i = 0; i < input_vertices.size(); i++) {
             V.row(i) = input_vertices[i];
@@ -955,7 +955,7 @@ void floatTetWild::output_component(const std::vector<Vector3>& input_vertices, 
         const std::vector<int>& input_tags){
     return;
 
-    Eigen::MatrixXd V(input_vertices.size(), 3);
+    MatrixXs V(input_vertices.size(), 3);
     for(int i=0;i<input_vertices.size();i++)
         V.row(i) = input_vertices[i];
 

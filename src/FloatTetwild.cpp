@@ -26,7 +26,7 @@ namespace floatTetWild {
 
 int tetrahedralization(GEO::Mesh&       sf_mesh,
                        Parameters       params,
-                       Eigen::MatrixXd& V,
+                       MatrixXs& V,
                        Eigen::MatrixXi& T,
                        int              boolean_op,
                        bool             skip_simplify)

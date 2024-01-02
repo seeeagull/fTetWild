@@ -123,7 +123,7 @@ void floatTetWild::init(Mesh &mesh, AABBWrapper& tree) {
         output_info(mesh, tree);
         //pausee();
         int v_num, t_num;
-        double max_energy, avg_energy;
+        Scalar max_energy, avg_energy;
         v_num = mesh.get_v_num();
         t_num = mesh.get_t_num();
         get_max_avg_energy(mesh, max_energy, avg_energy);
@@ -325,7 +325,7 @@ void floatTetWild::cleanup_empty_slots(Mesh &mesh, double percentage) {
 void floatTetWild::operation(Mesh &mesh, AABBWrapper& tree, const std::array<int, 4> &ops){
     igl::Timer igl_timer;
     int v_num, t_num;
-    double max_energy, avg_energy;
+    Scalar max_energy, avg_energy;
     double time;
 
     for (int i = 0; i < ops[0]; i++) {
@@ -1214,7 +1214,7 @@ void floatTetWild::output_surface(Mesh& mesh, const std::string& filename) {
             }
         }
     }
-    igl::writeSTL(filename + ".stl", Eigen::MatrixXd(V_sf), Eigen::MatrixXi(F_sf));
+    igl::writeSTL(filename + ".stl", MatrixXs(V_sf), Eigen::MatrixXi(F_sf));
 }
 
 //void floatTetWild::apply_sizingfield(const Eigen::VectorXd& V_in, const Eigen::VectorXi& T_in, const Eigen::VectorXd& values,
@@ -1425,7 +1425,7 @@ void floatTetWild::get_tracked_surface(Mesh& mesh, Eigen::Matrix<Scalar, Eigen::
 //    igl::writeSTL("before_bfs.stl", V_sf, F_sf);
 
     if (true || mesh.params.correct_surface_orientation) {
-        Eigen::MatrixXd V;
+        MatrixXs V;
         Eigen::MatrixXi F;
         Eigen::VectorXi _1, _2;
         igl::remove_duplicate_vertices(V_sf, F_sf, -1, V, _1, _2, F);
@@ -2609,7 +2609,7 @@ void floatTetWild::manifold_vertices(Mesh& mesh){
     }
 }
 
-void floatTetWild::get_surface(Mesh& mesh, Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
+void floatTetWild::get_surface(Mesh& mesh, MatrixXs& V, Eigen::MatrixXi& F) {
     auto &tets = mesh.tets;
     auto &tet_vertices = mesh.tet_vertices;
 
@@ -2681,7 +2681,7 @@ void floatTetWild::get_surface(Mesh& mesh, Eigen::MatrixXd& V, Eigen::MatrixXi& 
 }
 
 #include <igl/is_vertex_manifold.h>
-void floatTetWild::manifold_surface(Mesh& mesh, Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
+void floatTetWild::manifold_surface(Mesh& mesh, MatrixXs& V, Eigen::MatrixXi& F) {
     auto &tets = mesh.tets;
     auto &tet_vertices = mesh.tet_vertices;
 
