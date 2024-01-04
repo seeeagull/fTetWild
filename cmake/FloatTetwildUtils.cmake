@@ -29,8 +29,4 @@ function(float_tetwild_add_application APP_SOURCE)
 
 	# Output directory for binaries
 	set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-
-	if(FLOAT_TETWILD_WITH_SANITIZERS)
-		add_sanitizers(${APP_NAME})
-	endif()
 endfunction()
