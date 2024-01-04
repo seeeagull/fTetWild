@@ -28,17 +28,17 @@ endif()
 
 # Libigl
 if(NOT TARGET igl::core)
+	# find_package(libigl REQUIRED)
 	float_tetwild_download_libigl()
 
-	# Import libigl targets
+	# # Import libigl targets
 	list(APPEND CMAKE_MODULE_PATH "${FLOAT_TETWILD_EXTERNAL}/libigl/cmake")
 	include(libigl)
 endif()
 
 # Geogram
 if(NOT TARGET geogram::geogram)
-	float_tetwild_download_geogram()
-	include(geogram)
+	add_subdirectory(${FLOAT_TETWILD_EXTERNAL}/geogram)
 endif()
 
 
@@ -50,7 +50,7 @@ find_package(Threads REQUIRED)
 
 # Json
 if(NOT TARGET json)
-	float_tetwild_download_json()
+	add_subdirectory(${FLOAT_TETWILD_EXTERNAL}/json)
 	add_library(json INTERFACE)
 	target_include_directories(json SYSTEM INTERFACE ${FLOAT_TETWILD_EXTERNAL}/json/include)
 endif()

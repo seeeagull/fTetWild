@@ -32,22 +32,6 @@ function(float_tetwild_download_libigl)
     )
 endfunction()
 
-## Json
-function(float_tetwild_download_json)
-    float_tetwild_download_project(json
-        GIT_REPOSITORY https://github.com/jdumas/json
-        GIT_TAG        0901d33bf6e7dfe6f70fd9d142c8f5c6695c6c5b
-    )
-endfunction()
-
-## Geogram LGPL
-function(float_tetwild_download_geogram)
-    float_tetwild_download_project(geogram
-        GIT_REPOSITORY https://github.com/seeeagull/geogram.git
-        GIT_TAG        7705a929db874a2fdbe08d3a96e476c626b4ff53
-    )
-endfunction()
-
 ## exact envelope
 function(float_tetwild_download_exact_envelope)
     float_tetwild_download_project(exact_envelope
