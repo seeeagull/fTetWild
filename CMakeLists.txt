@@ -3,11 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 project(FloatTetwild)
 ################################################################################
 
-if(INPUT_THIRD_PARTY_DIR)
-	set(FLOAT_TETWILD_EXTERNAL ${CMAKE_CURRENT_SOURCE_DIR}/${INPUT_THIRD_PARTY_DIR}/)
-else()
-	set(FLOAT_TETWILD_EXTERNAL ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/)
-endif()
+set(FLOAT_TETWILD_EXTERNAL ${CMAKE_CURRENT_SOURCE_DIR}/ext)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
@@ -108,6 +104,12 @@ target_link_libraries(${PROJECT_NAME}
 		json
 		${GMP_LIBRARIES}
 		# ${MPFR_LIBRARIES}
+)
+include_directories(
+  # geogram
+  ${FLOAT_TETWILD_EXTERNAL}/geogram/src/lib
+  # json
+  ${FLOAT_TETWILD_EXTERNAL}/json/include
 )
 if(FLOAT_TETWILD_ENABLE_TBB)
 	# find_package(TBB REQUIRED)

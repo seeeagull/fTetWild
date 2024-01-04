@@ -1,7 +1,8 @@
 bin*/
 *.code-workspace
 *.sublime-project
-3rdparty*
+ext/.cache
+ext/libigl
 .idea*
 ./*build*
 *build*
