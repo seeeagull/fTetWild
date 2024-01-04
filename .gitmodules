@@ -1,0 +1,6 @@
+[submodule "ext/geogram"]
+	path = ext/geogram
+	url = https://github.com/seeeagull/geogram.git
+[submodule "ext/json"]
+	path = ext/json
+	url = https://github.com/jdumas/json.git
