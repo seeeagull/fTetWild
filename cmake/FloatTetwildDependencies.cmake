@@ -39,6 +39,8 @@ endif()
 # Geogram
 if(NOT TARGET geogram::geogram)
 	add_subdirectory(${FLOAT_TETWILD_EXTERNAL}/geogram)
+	add_library(geogram::geogram ALIAS geogram)
+	include(geogram)
 endif()
 
 
@@ -50,7 +52,6 @@ find_package(Threads REQUIRED)
 
 # Json
 if(NOT TARGET json)
-	add_subdirectory(${FLOAT_TETWILD_EXTERNAL}/json)
 	add_library(json INTERFACE)
 	target_include_directories(json SYSTEM INTERFACE ${FLOAT_TETWILD_EXTERNAL}/json/include)
 endif()
