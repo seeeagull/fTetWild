@@ -11,6 +11,7 @@
 #include <thread>
 #endif
 
+#include <floattetwild/Types.hpp>
 #include <floattetwild/AABBWrapper.h>
 #include <floattetwild/FloatTetDelaunay.h>
 #include <floattetwild/LocalOperations.h>
@@ -41,7 +42,6 @@
 #include <cstdlib>
 
 using namespace floatTetWild;
-using namespace Eigen;
 
 class GeoLoggerForward : public GEO::LoggerClient
 {

@@ -21,19 +21,13 @@ if(NOT TARGET spdlog::spdlog)
 	# Create interface target
 	add_library(spdlog INTERFACE)
 	add_library(spdlog::spdlog ALIAS spdlog)
-	# target_include_directories(spdlog INTERFACE ${FLOAT_TETWILD_EXTERNAL}/spdlog/include)
 	target_link_libraries(spdlog INTERFACE fmt::fmt)
 	target_compile_definitions(spdlog INTERFACE SPDLOG_FMT_EXTERNAL)
 endif()
 
 # Libigl
 if(NOT TARGET igl::core)
-	# find_package(libigl REQUIRED)
-	float_tetwild_download_libigl()
-
-	# # Import libigl targets
-	list(APPEND CMAKE_MODULE_PATH "${FLOAT_TETWILD_EXTERNAL}/libigl/cmake")
-	include(libigl)
+	message(FATAL_ERROR "No libigl found. You probably need -DZENO_WITH_cgmesh:BOOL=ON")
 endif()
 
 # Geogram
