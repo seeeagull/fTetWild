@@ -2,19 +2,19 @@
 
 #include <vector>
 
-#ifndef EXPORT
+#ifndef FTETWLD_EXPORT
 #  if defined(_MSC_VER) || defined(__CYGWIN__)
 #    ifdef FTetWild_EXPORT
-#      define EXPORT __declspec(dllexport)
+#      define FTETWLD_EXPORT __declspec(dllexport)
 #    else
-#      define EXPORT __declspec(dllimport)
+#      define FTETWLD_EXPORT __declspec(dllimport)
 #    endif
 #  elif defined(__clang__) || defined(__GNUC__)
-#    define EXPORT __attribute__((visibility("default")))
+#    define FTETWLD_EXPORT __attribute__((visibility("default")))
 #  endif
 #endif
 
 
-EXPORT int runFTetWild(std::vector<std::vector<int>> &faces,
+FTETWLD_EXPORT int runFTetWild(std::vector<std::vector<int>> &faces,
                        std::vector<std::vector<float>> &verts,
                        int argc, char **argv);

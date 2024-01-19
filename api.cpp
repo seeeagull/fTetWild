@@ -33,6 +33,7 @@
 #include <igl/copyleft/tetgen/tetrahedralize.h>
 #endif
 
+#include "api.h"
 #include <geogram/basic/command_line.h>
 #include <geogram/basic/command_line_args.h>
 #include <geogram/basic/logger.h>
